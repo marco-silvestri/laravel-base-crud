@@ -9,11 +9,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">
-            <div class="nav-brand">
-                Classe 12
-            </div>
-            <ul class="navbar-nav d-flex">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="navbar-brand">MySchool</div>
+            <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('classrooms.index') }}">Classrooms</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('classrooms.create')}}">Create a Classroom</a></li>

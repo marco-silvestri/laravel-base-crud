@@ -51,6 +51,12 @@ class TeacherController extends Controller
         $teacherNew->age = $data['age'];
         $teacherNew->cv_link = $data['cv_link'];
         $saved = $teacherNew->save();
+
+        // redirect custom view
+            if ($saved){
+                $idTeacherNew = Teacher::find($teacherNew->id);
+                return redirect()->route('teachers.show', $idTeacherNew);
+            }
     }
 
     /**
@@ -59,9 +65,9 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Teacher $teacher)
     {
-        //
+        return view('teachers.show', compact('teacher'));
     }
 
     /**

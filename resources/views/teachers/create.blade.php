@@ -15,7 +15,6 @@
     
     @endif
 
-    <h2 class="text-danger">Create</h2>
     <form action="{{ route('teachers.store') }}" method="POST">
         @csrf
         @method('POST')
