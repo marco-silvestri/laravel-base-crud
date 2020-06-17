@@ -13,13 +13,12 @@
             <div class="nav-brand">
                 Classe 12
             </div>
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav d-flex">
                 <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('classrooms.index') }}">Classrooms</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('classrooms.create')}}">Create a Classroom</a></li>
-                <li class="nav-item"></li>
-                <li class="nav-item"></li>
-                <li class="nav-item"></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('teachers.index')}}">Teachers</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('teachers.create')}}">Add a Teacher</a></li>
             </ul>
         </nav>
     </header>

@@ -39,11 +39,13 @@ class TeacherController extends Controller
         $data = $request->all();
 
         $request->validate([
-            'name' => 'required|unique:classrooms|max:20',
-            'description' => 'required|max:255',
+            'name' => 'required|max:20',
+            'surname' => 'required|max:255',
+            'age' => 'required',
+            'cv_link' => 'max:255|unique:teachers'
         ]);
 
-        $teacherNew = new Classroom();
+        $teacherNew = new Teacher();
         $teacherNew->name = $data['name'];
         $teacherNew->surname = $data['surname'];
         $teacherNew->age = $data['age'];
