@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Teacher;
+use Illuminate\Validation\Rule;
 
 class TeacherController extends Controller
 {
@@ -37,13 +38,7 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
-        $request->validate([
-            'name' => 'required|max:20',
-            'surname' => 'required|max:255',
-            'age' => 'required',
-            'cv_link' => 'max:255|unique:teachers'
-        ]);
+        $request->validate($this->validationRules());
 
         $teacherNew = new Teacher();
         //$teacherNew->name = $data['name'];
@@ -78,9 +73,9 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Teacher $teacher)
     {
-        //
+        return view('teachers.edit', compact('teacher'));
     }
 
     /**
@@ -90,9 +85,13 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Teacher $teacher)
     {
-        //
+        $data = $request->all();
+        $request->validate($this->validationRules($teacher->id));
+
+        $teacher->update($data);
+        return redirect()->route('teachers.index');
     }
 
     /**
@@ -101,8 +100,23 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Teacher $teacher)
     {
-        //
+        $oldTeacher = $teacher->name . $teacher->surname;
+        $hasDeleted = $teacher->delete();
+    
+        if ($hasDeleted){
+            return redirect()->route('teachers.index')->with('deleted', $oldTeacher);
+        }
+    }
+
+    public function validationRules($id = null){
+
+        return [
+            'name' => ['required','max:20'],
+            'surname' => ['required','max:255'],
+            'age' => ['required', 'max:65'],
+            'cv_link' => ['max:255', Rule::unique('teachers')->ignore($id)]
+        ];
     }
 }

@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
             <label for="description">Description:</label>
-            <input type="text" class="form-control" value="{{ old('name',$classroom->description) }}" {{-- Switch between old and current value --}}
+            <input type="text" class="form-control" value="{{ old('description',$classroom->description) }}" {{-- Switch between old and current value --}}
                 name="description" placeholder="Class description" id="description">
         </div>
         <input type="submit" class="btn btn-danger" value="Edit">
