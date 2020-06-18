@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Classroom;
+//Call specific validation method through the class Rule
+use Illuminate\Validation\Rule; 
 
 class ClassroomController extends Controller
 {
@@ -38,14 +40,13 @@ class ClassroomController extends Controller
     {
         $data = $request->all();
 
-        $request->validate([
-            'name' => 'required|unique:classrooms|max:20',
-            'description' => 'required|max:255',
-        ]);
+        $request->validate($this->validationRules());
 
         $classroomNew = new Classroom();
-        $classroomNew->name = $data['name'];
-        $classroomNew->description = $data['description'];
+        //$classroomNew->name = $data['name'];
+        //$classroomNew->description = $data['description'];
+        //with fillable
+        $classroomNew->fill($data);
         $saved = $classroomNew->save();
 
         // redir
@@ -73,9 +74,11 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Classroom $classroom)
+    {   
+        //Get id, the old way
+        //$classroom = Classroom::find($id);
+        return view('classrooms.edit', compact('classroom'));
     }
 
     /**
@@ -85,9 +88,16 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Classroom $classroom)
     {
-        //
+        $data = $request->all();
+        //Validate by calling the parameters given by the function
+        $request->validate($this->validationRules($classroom->id));
+
+        $classroom->update($data);
+        
+        return redirect()->route('classrooms.index');
+
     }
 
     /**
@@ -96,8 +106,30 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Classroom $classroom)
     {
-        //
+        $refClassroom = $classroom->name;
+        $hasDeleted = $classroom->delete();
+
+        //Pass the session data
+        if ($hasDeleted){
+            return redirect()->route('classrooms.index')->with('deleted', $refClassroom);
+        }
+
+    }
+
+    //Utilities
+
+    private function validationRules($id = null){
+        return [
+            'name' => [
+                'required',
+                'max:20',
+                Rule::unique('classrooms')->ignore($id), //Create a unique record rule, but ignore it if is the one being edited 
+            ],
+            [
+            'description' => 'required|max:255'
+            ],
+        ];
     }
 }

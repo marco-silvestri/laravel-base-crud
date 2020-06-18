@@ -46,10 +46,12 @@ class TeacherController extends Controller
         ]);
 
         $teacherNew = new Teacher();
-        $teacherNew->name = $data['name'];
-        $teacherNew->surname = $data['surname'];
-        $teacherNew->age = $data['age'];
-        $teacherNew->cv_link = $data['cv_link'];
+        //$teacherNew->name = $data['name'];
+        //$teacherNew->surname = $data['surname'];
+        //$teacherNew->age = $data['age'];
+        //$teacherNew->cv_link = $data['cv_link'];
+        //with fillable
+        $teacherNew->fill($data);
         $saved = $teacherNew->save();
 
         // redirect custom view
