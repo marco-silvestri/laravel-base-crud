@@ -1,6 +1,11 @@
 @extends('layouts.main')
 
 @section('main-content')
+    @if (session('deleted'))
+    <div class="alert alert-success">
+        {{ session('deleted') }} successfully deleted
+    </div>
+    @endif
     <h1>Teachers</h1>
 
     <section class="teachers">
@@ -26,8 +31,14 @@
                         <td>{{ $teacher->age }}</td>
                         <td>{{ $teacher->cv_link }}</td>
                         <td><a class="btn btn-primary" href="{{ route('teachers.show', $teacher->id) }}">Show</a></td>
-                        <td>Update</td>
-                        <td>Delete</td>
+                        <td><a class="btn btn-warning" href="{{ route('teachers.edit', $teacher->id) }}">Update</a></td>
+                        <td>
+                            <form action="{{ route('teachers.destroy', $teacher->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input class="btn btn-warning" type="submit" value="Delete">
+                        </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

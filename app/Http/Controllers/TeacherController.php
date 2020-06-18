@@ -102,7 +102,7 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        $oldTeacher = $teacher->name . $teacher->surname;
+        $oldTeacher = $teacher->name . ' ' . $teacher->surname;
         $hasDeleted = $teacher->delete();
     
         if ($hasDeleted){

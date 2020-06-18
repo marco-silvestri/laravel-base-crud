@@ -16,5 +16,13 @@
             Update: {{ $classroom->updated_at }}
         </li>
     </ul>
+    <div class="container d-flex">
+        <a class="btn btn-warning" href="{{ route('classrooms.edit', $classroom->id) }}">Update</a>
+        <form action="{{ route('classrooms.destroy', $classroom->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <input class="btn btn-danger" type="submit" value="Delete">
+        </form>
+    </div>
 
 @endsection
