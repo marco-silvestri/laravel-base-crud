@@ -17,6 +17,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('classrooms.create')}}">Create a Classroom</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('teachers.index')}}">Teachers</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('teachers.create')}}">Add a Teacher</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('textbooks.index')}}">Text Books</a></li>
             </ul>
         </nav>
     </header>

@@ -17,7 +17,7 @@ class StudentsTableSeeder extends Seeder
          * Clean-up
          */
 
-        Student::truncate();
+        //Student::truncate();
 
         /* MANUALLY GENERATED
         $students = [
