@@ -114,9 +114,9 @@ class TeacherController extends Controller
 
         return [
             'name' => ['required','max:20'],
-            'surname' => ['required','max:255'],
-            'age' => ['required', 'max:65'],
-            'cv_link' => ['max:255', Rule::unique('teachers')->ignore($id)]
+            'surname' => ['required','max:40'],
+            'age' => ['required', 'lt:66', 'numeric'], //https://laravel.com/docs/7.x/validation
+            'cv_link' => ['required','max:240', Rule::unique('teachers')->ignore($id)]
         ];
     }
 }
