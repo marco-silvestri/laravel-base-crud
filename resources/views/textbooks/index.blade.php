@@ -6,9 +6,9 @@
         {{ session('deleted') }} successfully deleted
     </div>
     @endif
-    <h1>Teachers</h1>
+    <h1>Books</h1>
 
-    <section class="teachers">
+    <section class="textbooks">
             <table class="table">
                 <thead>
                     <tr>

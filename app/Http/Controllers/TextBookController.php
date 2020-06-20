@@ -44,7 +44,7 @@ class TextBookController extends Controller
         $savedState = $newTextBook->save();
 
         if($savedState){
-            $idNewTextBook = TextBook::find($newTextBook->$id);
+            $idNewTextBook = TextBook::find($newTextBook->id);
             return redirect()->route('textbooks.show', $idNewTextBook);
         }
     }
@@ -55,8 +55,9 @@ class TextBookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(TextBook $textBook)
+    public function show($id)
     {
+        $textBook = TextBook::find($id); //does not work without it
         return view('textbooks.show' , compact('textBook'));
     }
 
@@ -66,8 +67,9 @@ class TextBookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(TextBook $textBook)
+    public function edit($id)
     {
+        $textBook = TextBook::find($id);
         return view('textbooks.edit', compact('textBook'));
     }
 
@@ -78,8 +80,10 @@ class TextBookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TextBook $textBook)
+    public function update(Request $request, $id)
     {
+
+        $textBook = TextBook::find($id);
         $data = $request->all();
         $request->validate($this->validationRules($textBook->id));
 
@@ -93,14 +97,15 @@ class TextBookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TextBook $textBook)
+    public function destroy($id)
     {
+        $textBook = TextBook::find($id);
         $oldTextBook = $textBook->title . ' by ' . $textBook->author;
         $hasDeleted = $textBook->delete();
     
         if ($hasDeleted){
             return redirect()->route('textbooks.index')->with('deleted', $oldTextBook);
-        }
+        }        
     }
 
     public function validationRules($id = null){
