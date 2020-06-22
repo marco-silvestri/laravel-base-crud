@@ -55,10 +55,11 @@ class TextBookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(TextBook $textbook)
     {
-        $textBook = TextBook::find($id); //does not work without it
-        return view('textbooks.show' , compact('textBook'));
+
+        //$textBook = TextBook::find($id); //does not work without it
+        return view('textbooks.show' , ['textBook' => $textbook]);
     }
 
     /**

@@ -17,7 +17,7 @@
         </li>
     </ul>
     <div class="container d-flex">
-        <a class="btn btn-warning" href="{{ route('textbooks.edit', $textBook->id ) }}">Update</a>
+        <a class="btn btn-warning" href="{{ route('textbooks.edit', $textBook->id) }}">Update</a>
         <form action="{{ route('textbooks.destroy', $textBook->id ) }}" method="POST">
             @csrf
             @method('DELETE')
